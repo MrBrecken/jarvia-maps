@@ -6,7 +6,7 @@
 <title>JARVIA — Rhythm in the Void</title>
 <style>
 /* ============================================================
-   JARVIA — dark futuristic I
+   JARVIA — dark futuristic UI
    Palette: void navy base, ion-cyan primary, plasma-violet accent
    ============================================================ */
 :root{
@@ -40,7 +40,7 @@ body.menus #gl{cursor:default}
   transition:opacity .28s ease,visibility 0s linear .28s;
   z-index:20;padding:24px}
 .screen.active{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s,0s}
-.screen::before{content:"";position:absolute;inset:0;z-index:-1;
+.screen::before{content:"";position:fixed;inset:0;z-index:-1;
   background:radial-gradient(ellipse at 50% 40%, rgba(10,16,32,.55), rgba(4,6,11,.86));
   backdrop-filter:blur(2px)}
 #screen-pause::before{background:radial-gradient(ellipse at 50% 45%, rgba(8,12,24,.7), rgba(3,4,8,.92))}
@@ -132,6 +132,43 @@ select.set-select{background:var(--void-2);color:var(--text);border:1px solid va
 .toggle.on::after{left:24px;background:var(--ion);box-shadow:0 0 10px rgba(109,242,255,.8)}
 .storage-note{grid-column:1/-1;margin-top:14px;font-size:10.5px;color:var(--text-dim);letter-spacing:.05em}
 
+/* ---------- rank / xp ---------- */
+#menu-rank{display:flex;align-items:center;gap:10px;margin:-6px 0 18px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em}
+#mr-lv{color:var(--text);border:1px solid var(--line-brt);padding:4px 10px}
+#mr-name{text-transform:uppercase;letter-spacing:.3em;font-size:11px}
+#res-lvlwrap{margin-top:14px;font-family:var(--mono)}
+#res-rank{font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:6px}
+#res-lvlbar{height:6px;background:rgba(120,160,255,.13);border-radius:3px;overflow:hidden}
+#res-lvlfill{height:100%;width:0%;border-radius:3px;transition:width .8s cubic-bezier(.2,.8,.2,1);
+  background:linear-gradient(90deg,var(--violet),var(--ion))}
+#res-lvltext{font-size:10.5px;color:var(--text-dim);margin-top:5px;letter-spacing:.08em}
+#res-lvlup{color:var(--gold)}
+/* ---------- song rows ---------- */
+#screen-songs{justify-content:flex-start;padding-top:34px;padding-bottom:56px;overflow-y:auto}
+#screen-songs::-webkit-scrollbar{width:8px}
+#screen-songs::-webkit-scrollbar-thumb{background:rgba(109,242,255,.18);border-radius:4px}
+#screen-songs::-webkit-scrollbar-thumb:hover{background:rgba(109,242,255,.32)}
+.lib-sec{width:min(880px,94vw);margin:22px 0 8px;display:flex;align-items:baseline;gap:14px}
+.lib-sec .t{font-size:11px;letter-spacing:.34em;text-indent:.34em;text-transform:uppercase;color:var(--ion)}
+.lib-sec .n{font-family:var(--mono);font-size:10px;color:var(--text-dim)}
+.lib-sec.feat .t{color:var(--violet)}
+.lib-sec.cust .t{color:#ff5fd6}
+.song-row{width:min(880px,94vw);display:flex;align-items:center;gap:16px;
+  padding:11px 16px;border:1px solid var(--line);border-left:3px solid transparent;
+  background:rgba(12,14,24,.5);margin-bottom:6px;cursor:pointer;transition:all .13s}
+.song-row:hover{border-color:var(--line-brt);border-left-color:var(--row-c,var(--ion));
+  background:rgba(18,22,38,.72);transform:translateX(3px)}
+.song-row .who{flex:1;min-width:0}
+.song-row .ti{font-size:14px;font-weight:600;color:#fff;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.song-row .by{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);
+  margin-top:3px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.song-row .meta{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);
+  text-align:right;line-height:1.7;white-space:nowrap}
+.song-row .stars{font-family:var(--mono);font-size:13px;font-weight:600;min-width:64px;text-align:right}
+.song-row .best{font-family:var(--mono);font-size:10px;min-width:52px;text-align:right;color:var(--gold)}
+.song-row .need{color:var(--gold);font-size:9.5px;letter-spacing:.06em}
 /* ---------- settings tabs ---------- */
 #set-tabs{display:flex;margin:-6px 0 20px;font-family:var(--mono)}
 .set-tab{background:transparent;border:1px solid var(--line);color:var(--text-dim);
@@ -146,6 +183,11 @@ select.set-select{background:var(--void-2);color:var(--text);border:1px solid va
 .img-status.set{color:var(--green)}
 .img-clear{color:var(--red);cursor:pointer;font-size:13px;opacity:.7;padding:0 4px}
 .img-clear:hover{opacity:1}
+.set-text{width:230px;background:var(--void-2);border:1px solid var(--line-brt);color:var(--text);
+  border-radius:3px;padding:7px 9px;font-family:var(--mono);font-size:12px;outline:none;
+  -webkit-user-select:text;user-select:text}
+.set-text:focus{border-color:var(--ion)}
+.song-row .dlst{font-family:var(--mono);font-size:9.5px;color:var(--ion-dim);letter-spacing:.06em}
 
 /* ---------- mods bar ---------- */
 #mods-bar{display:flex;align-items:center;gap:12px;margin:-8px 0 22px;font-family:var(--mono)}
@@ -160,6 +202,10 @@ select.set-select{background:var(--void-2);color:var(--text);border:1px solid va
 .mod-group button.on{color:var(--ion);border-color:var(--ion);background:rgba(109,242,255,.08);
   position:relative;z-index:1}
 .mod-toggle.on{color:#ff5fd6;border-color:#ff5fd6;background:rgba(255,95,214,.08)}
+#mod-speed-custom{width:64px;background:var(--void-2);border:1px solid var(--line);
+  color:var(--ion);font-family:var(--mono);font-size:11px;padding:6px 7px;outline:none;
+  -webkit-user-select:text;user-select:text}
+#mod-speed-custom:focus{border-color:var(--ion)}
 .mods-note{font-size:10px;color:var(--gold);letter-spacing:.06em}
 
 /* ---------- HUD (side panels + top title / bottom progress) ---------- */
@@ -191,7 +237,7 @@ select.set-select{background:var(--void-2);color:var(--text);border:1px solid va
 #hud-combo .x{font-size:20px;color:var(--ion-dim)}
 #hud-combo.bump #hud-combo-num{transform:scale(1.16)}
 #hud-hp{display:flex;gap:5px;justify-content:center;margin-top:4px}
-.hp-pip{width:19px;height:8px;border-radius:2px;background:rgba(120,160,255,.15);
+.hp-pip{width:10px;height:8px;border-radius:2px;background:rgba(120,160,255,.15);
   border:1px solid rgba(120,160,255,.2);transition:all .12s}
 .hp-pip.f{background:var(--green);border-color:var(--green);box-shadow:0 0 8px rgba(73,209,141,.6)}
 .hp-pip.f.low{background:var(--red);border-color:var(--red);box-shadow:0 0 8px rgba(255,95,122,.7)}
@@ -327,7 +373,9 @@ select.ed-in{cursor:pointer}
     <div><div class="hp-label">accuracy</div><div class="hp-val" id="hud-acc">100.00%</div></div>
     <div><div class="hp-label">health</div><div id="hud-hp">
       <span class="hp-pip"></span><span class="hp-pip"></span><span class="hp-pip"></span>
-      <span class="hp-pip"></span><span class="hp-pip"></span></div></div>
+      <span class="hp-pip"></span><span class="hp-pip"></span><span class="hp-pip"></span>
+      <span class="hp-pip"></span><span class="hp-pip"></span><span class="hp-pip"></span>
+      <span class="hp-pip"></span></div></div>
   </div>
   <div id="hud-right" class="hud-panel">
     <div><div class="hp-label">score</div><div class="hp-val" id="hud-score">0</div></div>
@@ -346,6 +394,7 @@ select.ed-in{cursor:pointer}
   <div class="logo">JARVIA</div>
   <div class="tagline">rhythm in the void</div>
   <div class="menu-col">
+    <div id="menu-rank"><span id="mr-lv"></span><span id="mr-name"></span></div>
     <button class="btn primary" id="btn-play">Play</button>
     <button class="btn" id="btn-editor">Map Editor</button>
     <button class="btn" id="btn-settings">Settings</button>
@@ -363,12 +412,16 @@ select.ed-in{cursor:pointer}
       <button data-v="0.75">0.75&times;</button><button data-v="1" class="on">1.00&times;</button>
       <button data-v="1.25">1.25&times;</button><button data-v="1.5">1.50&times;</button>
     </div>
+    <input type="number" id="mod-speed-custom" min="0.25" max="3" step="0.01" value="1.00" title="any speed, 0.25× to 3×">
     <button class="mod-toggle" id="mod-nofail">No Fail</button>
     <span class="mods-note" id="mods-note"></span>
   </div>
-  <div class="card-row" id="song-list"></div>
-  <div class="custom-sec" id="custom-sec" style="display:none">Custom Maps</div>
-  <div class="card-row" id="custom-list"></div>
+  <div class="lib-sec"><span class="t">Jarvia Originals</span><span class="n" id="lib-n-orig"></span></div>
+  <div id="song-list"></div>
+  <div class="lib-sec feat"><span class="t">Community Maps</span><span class="n" id="lib-n-feat"></span></div>
+  <div id="featured-list"></div>
+  <div class="lib-sec cust" id="custom-sec" style="display:none"><span class="t">Your Maps</span><span class="n" id="lib-n-cust"></span></div>
+  <div id="custom-list"></div>
   <div class="menu-col"><button class="btn ghost small" id="btn-songs-back">Back</button></div>
 </div>
 
@@ -396,6 +449,7 @@ select.ed-in{cursor:pointer}
       <button class="ebtn" id="ed-save">Save Map</button>
       <button class="ebtn" id="ed-copy">Copy Map Data</button>
       <button class="ebtn" id="ed-importdata">Import Map Data</button>
+      <div class="ed-row"><label>Target ★</label><input class="ed-in" id="ed-stars" type="number" value="5" min="1" max="14" step="0.5"></div>
       <button class="ebtn" id="ed-autogen">Auto-Generate</button>
       <button class="ebtn dim" id="ed-clear">Clear Notes</button>
       <button class="ebtn hot" id="ed-test">Playtest</button>
@@ -426,7 +480,9 @@ select.ed-in{cursor:pointer}
 </div>
 <input type="file" id="file-audio" accept="audio/*,.mp3,.ogg,.wav,.sspm" style="display:none">
 <input type="file" id="file-img" accept="image/*" style="display:none">
+<input type="file" id="file-hitsound" accept="audio/*,.wav,.ogg,.mp3" style="display:none">
 <input type="file" id="file-sspm" accept=".sspm" style="display:none">
+<input type="file" id="file-colors" accept=".txt,text/plain" style="display:none">
 
 <!-- ================= DIFFICULTY SELECT ================= -->
 <div class="screen" id="screen-diff">
@@ -472,6 +528,12 @@ select.ed-in{cursor:pointer}
       <div class="res-line"><span class="k">Accuracy</span><span class="v" id="res-acc">0%</span></div>
       <div class="res-line"><span class="k">Max Combo</span><span class="v" id="res-combo">0</span></div>
       <div class="res-line"><span class="k">Mods</span><span class="v" id="res-mods">none</span></div>
+      <div class="res-line"><span class="k">XP</span><span class="v" id="res-xp">+0</span></div>
+      <div id="res-lvlwrap">
+        <div id="res-rank"></div>
+        <div id="res-lvlbar"><div id="res-lvlfill"></div></div>
+        <div id="res-lvltext"></div>
+      </div>
       <div class="res-judges">
         <div style="color:var(--gold)"><div class="n" id="res-p">0</div>perfect</div>
         <div style="color:var(--green)"><div class="n" id="res-gr">0</div>great</div>
@@ -483,6 +545,7 @@ select.ed-in{cursor:pointer}
   </div>
   <div class="menu-col" style="flex-direction:row;gap:10px">
     <button class="btn primary small" id="btn-res-retry">Retry</button>
+    <button class="btn small" id="btn-res-practice" style="display:none;border-color:#ff5fd6;color:#ff5fd6">Practice from death (−5s)</button>
     <button class="btn small" id="btn-res-songs">Song Select</button>
     <button class="btn ghost small" id="btn-res-menu">Main Menu</button>
   </div>
@@ -514,7 +577,7 @@ const fmtNum=n=>n.toLocaleString('en-US');
 
 /* ============ 2. SETTINGS (auto-saved) ============ */
 const SETTINGS_DEFAULTS={
-  masterVol:.8, musicVol:.8, hitVol:.7,
+  masterVol:.8, musicVol:.8, hitVol:.7, hitSoundStyle:'classic',
   audioOffset:0, judgeOffset:0,
   sensitivity:1.0, cursorSize:1.0, cursorColor:'#7df9ff',
   cursorStyle:'dot', cursorTrail:true,
@@ -522,8 +585,16 @@ const SETTINGS_DEFAULTS={
   noteSpeed:1.0, noteDistance:1.0, noteSize:1.0, noteOpacity:.42, bloom:1.0, bgBrightness:.7,
   hitRings:true, hitParticles:true, hitPop:true, judgeText:true,
   showFps:false, vsync:true, fpsLimit:0,
-  speedMod:1, noFail:false,
+  speedMod:1, noFail:false, parallax:.6, fov:70,
+  borderStyle:'round', colorMode:'set', ghostMode:'off',
+  uiParallax:0, camParallax:0,
+  communityRepo:'',
 };
+const DEFAULT_COLORSET=['#e95f5f','#ffb2b2','#e88d5f','#ffcdb2','#e8ba5f','#ffe8b2',
+'#e8e85f','#faffb2','#bae85f','#dfffb2','#8de85f','#c4ffb2','#5fe85f','#b2ffbb',
+'#5fe88d','#b2ffd6','#5fe8ba','#b2fff1','#5fe8e8','#b2f1ff','#5fbae8','#b2d6ff',
+'#5f8de8','#b2bbff','#5f5fe8','#c4b2ff','#8d5fe8','#dfb2ff','#ba5fe8','#fab2ff',
+'#e85fe8','#ffb2e8','#e85fa4','#ffb2cd','#e85f8d','#ffb2b2'];
 const Settings={
   data:{...SETTINGS_DEFAULTS},
   persistOk:false,
@@ -559,6 +630,30 @@ const Settings={
   saveCustom(list){
     this._cmem=list;
     try{if(this.persistOk)localStorage.setItem(this.CKEY,JSON.stringify(list));}catch(e){}
+  },
+  /* ---- xp / level progress ---- */
+  getBP(){
+    try{if(this.persistOk){const v=localStorage.getItem('jarvia_xp');if(v!=null)return +v||0;}}catch(e){}
+    return this._bp||0;
+  },
+  addBP(n){
+    const v=Math.max(0,Math.floor(this.getBP()+n));
+    this._bp=v;
+    try{if(this.persistOk)localStorage.setItem('jarvia_xp',String(v));}catch(e){}
+    return v;
+  },
+  /* ---- note colorsets (hex list, cycled per note) ---- */
+  getColors(){
+    try{if(this.persistOk){const v=localStorage.getItem('jarvia_colors');
+      if(v){const a=JSON.parse(v);if(Array.isArray(a)&&a.length)return a;}}}catch(e){}
+    return this._colors||DEFAULT_COLORSET;
+  },
+  setColors(a){
+    this._colors=a&&a.length?a:DEFAULT_COLORSET;
+    try{if(this.persistOk){
+      if(a&&a.length)localStorage.setItem('jarvia_colors',JSON.stringify(a));
+      else localStorage.removeItem('jarvia_colors');
+    }}catch(e){}
   },
   /* ---- custom images (cursor / background) as data URLs ---- */
   getImg(kind){
@@ -828,6 +923,7 @@ const DIFF_META={
   expert:{name:'Expert',stars:8, color:'#ff5f7a'},
   master:{name:'Master',stars:10,color:'#c07bff'},
   custom:{name:'Custom',stars:0, color:'#ff7ad9'},
+  featured:{name:'Featured',stars:0, color:'#6df2ff'},
 };
 const stepsOf=str=>{const a=[];if(!str)return a;for(let i=0;i<16;i++)if(str[i]==='x')a.push(i);return a;};
 
@@ -976,6 +1072,76 @@ function buildChart(song,diffKey){
   const dur=out.length?out[out.length-1].t-out[0].t:1;
   return {notes:out,count:out.length,nps:out.length/Math.max(dur,1),duration:song.duration};
 }
+/* ============ STARS & XP (ported from the BeatPoints reference) ============ */
+/** Automated difficulty: peak density + average density + movement rate. */
+function starRating(notes){
+  const n=notes.length;
+  if(n<4)return 1.0;
+  const t0=notes[0].t,t1=notes[n-1].t,dur=Math.max(1,t1-t0);
+  const avg=n/dur;
+  const peaks=[];
+  let i=0;
+  for(let t=t0;t<t1;t+=.25){
+    while(i<n&&notes[i].t<t)i++;
+    let k=i;
+    while(k<n&&notes[k].t<t+1.5)k++;
+    peaks.push((k-i)/1.5);
+  }
+  peaks.sort((a,b)=>a-b);
+  const peak=peaks.length?peaks[Math.floor(peaks.length*.93)]:avg;
+  let move=0;
+  for(let a=1;a<n;a++)
+    move+=Math.max(Math.abs(notes[a].x-notes[a-1].x),Math.abs(notes[a].y-notes[a-1].y));
+  const moveRate=move/dur;
+  const raw=.62*Math.pow(peak,.85)+.22*Math.pow(avg,.9)+.3*Math.pow(moveRate,.8);
+  return Math.round(Math.max(1,raw*.75)*10)/10;
+}
+function starColor(s){
+  return s<3?'#49d18d':s<5?'#4aa8ff':s<7?'#ffd36b':s<9?'#ffb454'
+    :s<11?'#ff5f7a':s<14?'#c07bff':'#ff5fd6';
+}
+/* XP: exact curve & reward from the reference module. */
+const XP={
+  RANKS:[
+    ['Bronze',30,'#d68e7c'],['Silver',35,'#b1b1b1'],['Gold',40,'#ffcd53'],
+    ['Diamond',45,'#53f7ff'],['Master',50,'#ff53a1'],['Grandmaster',55,'#4ae351'],
+    ['Astral',60,'#8b46d9'],['Cosmic',65,'#4857df'],['Celestial',70,'#e0495a'],
+    ['Interstellar',75,'#ffffff']],
+  bpNeeded(l){ if(l<=1)return 0; return Math.floor(Math.pow(1.07,l-2)*500+.5); },
+  totalBpNeeded(l){ let s=0; for(let i=2;i<=l;i++)s+=this.bpNeeded(i); return s; },
+  levelFor(bp){
+    let lvl=1,acc=0;
+    for(;;){ acc+=this.bpNeeded(lvl+1); if(bp<acc)break; lvl++; if(lvl>999)break; }
+    return lvl;
+  },
+  progress(bp){
+    const lvl=this.levelFor(bp);
+    return {level:lvl,into:bp-this.totalBpNeeded(lvl),need:this.bpNeeded(lvl+1)};
+  },
+  rankFor(level){
+    let acc=0;
+    for(const [name,len,col] of this.RANKS){
+      acc+=len;
+      if(level<=acc)return {name,color:col};
+    }
+    return {name:'Interstellar',color:'#ffffff'};
+  },
+  /** reward = (acc/100)^3 * 100 * (stars+1)^1.3, stars capped for sanity */
+  reward(stars,acc){
+    const a=acc/100;
+    return Math.floor(a*a*a*100*Math.pow(Math.min(stars,12)+1,1.3)+.005);
+  }
+};
+/* Featured maps: unpack [ms,x*100,y*100] triples lazily, cache per id. */
+const _featCache={};
+function featNotes(f){
+  if(f.notes)return f.notes;
+  if(_featCache[f.id])return _featCache[f.id];
+  const a=f.n,out=new Array(a.length/3);
+  for(let i=0,j=0;i<a.length;i+=3,j++)
+    out[j]={t:a[i]/1000,x:a[i+1]/100,y:a[i+2]/100};
+  return _featCache[f.id]=out;
+}
 /*__END_CORE__*/
 
 /* ============ 5. AUDIO ENGINE + SEQUENCER ============ */
@@ -1072,9 +1238,63 @@ const AudioEngine={
     g.gain.linearRampToValueAtTime(0,t+d);
     o.connect(lp);lp.connect(g);g.connect(this.music);o.start(t);o.stop(t+d+.05);}},
   /* ---- hit feedback ---- */
+  /* Hit sound styles. 'custom' plays an imported clip (decoded lazily from
+     the stored data URL); everything else is synthesized so nothing ships
+     as audio data. Tier (perfect/great/good) nudges pitch where sensible. */
+  customHitBuf:null,_customHitLoading:false,
+  invalidateCustomHit(){this.customHitBuf=null;this._customHitLoading=false;},
+  _loadCustomHit(){
+    if(this.customHitBuf||this._customHitLoading)return;
+    const url=Settings.getImg('hitsound');
+    if(!url)return;
+    this._customHitLoading=true;
+    try{
+      const b64=url.slice(url.indexOf(',')+1);
+      const bin=atob(b64),u=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+      const done=buf=>{this.customHitBuf=buf;this._customHitLoading=false;};
+      const p=this.ctx.decodeAudioData(u.buffer,done,()=>{this._customHitLoading=false;});
+      if(p&&p.then)p.then(done,()=>{this._customHitLoading=false;});
+    }catch(e){this._customHitLoading=false;}
+  },
   hitSound(tier){
     if(!this.ctx)return;
-    const t=this.ctx.currentTime, pitch=tier===0?1900:tier===1?1650:1400;
+    const t=this.ctx.currentTime;
+    const style=Settings.get('hitSoundStyle')||'classic';
+    if(style==='custom'){
+      if(this.customHitBuf){
+        const s=this.ctx.createBufferSource();s.buffer=this.customHitBuf;
+        s.connect(this.sfx);s.start(t);
+        return;
+      }
+      this._loadCustomHit();      /* decode kicks off; classic fills in meanwhile */
+    }
+    if(style==='click'){
+      const o=this.ctx.createOscillator();o.type='square';
+      o.frequency.value=tier===0?2300:tier===1?2100:1900;
+      o.connect(this._env(t,.5,.02,this.sfx));o.start(t);o.stop(t+.03);
+      return;
+    }
+    if(style==='soft'){
+      const o=this.ctx.createOscillator();o.type='sine';
+      o.frequency.value=tier===0?980:tier===1?880:780;
+      o.connect(this._env(t,.55,.07,this.sfx));o.start(t);o.stop(t+.09);
+      return;
+    }
+    if(style==='clap'){
+      const n=this._noiseSrc(t,.06),bp=this.ctx.createBiquadFilter();
+      bp.type='bandpass';bp.frequency.value=1800;bp.Q.value=1.2;
+      n.connect(bp);bp.connect(this._env(t,.6,.05,this.sfx));
+      return;
+    }
+    if(style==='tick'){
+      const n=this._noiseSrc(t,.025),hp=this.ctx.createBiquadFilter();
+      hp.type='highpass';hp.frequency.value=7000;
+      n.connect(hp);hp.connect(this._env(t,.5,.02,this.sfx));
+      return;
+    }
+    /* classic (default) */
+    const pitch=tier===0?1900:tier===1?1650:1400;
     const o=this.ctx.createOscillator();o.type='square';o.frequency.value=pitch;
     o.connect(this._env(t,.4,.035,this.sfx));o.start(t);o.stop(t+.05);
     const n=this._noiseSrc(t,.03),hp=this.ctx.createBiquadFilter();
@@ -1086,10 +1306,12 @@ const AudioEngine={
 /** Look-ahead sequencer: schedules one 16th-step at a time, 280 ms ahead. */
 const Sequencer={
   song:null,zero:0,step:0,total:0,timer:null,rate:1,
-  start(song,zeroCtx,rate){
+  start(song,zeroCtx,rate,fromT){
     this.stop();
-    this.song=song;this.zero=zeroCtx;this.step=0;this.total=song.totalBars*16;
+    this.song=song;this.zero=zeroCtx;this.total=song.totalBars*16;
     this.rate=rate||1;
+    const sps=60/(song.bpm*this.rate)/4;
+    this.step=fromT?Math.max(0,Math.floor(fromT/sps)):0;
     AudioEngine.tone=song.tone||{};
     if(AudioEngine.delayWet)AudioEngine.delayWet.gain.value=
       (song.tone&&song.tone.echo!=null)?song.tone.echo:.22;
@@ -1147,7 +1369,7 @@ const SPAWNZ=-140;         // notes materialize here
 const APPROACH_DIST=HITZ-SPAWNZ;
 const MISSW=.055, W_PERFECT=.025, W_GREAT=.040;   // ±55 ms judgment window
 const NOTE_HALF=.45;       // note hitbox half-width, in cells
-const MAXHP=5;             // 5 misses in a row = death; hits heal
+const MAXHP=10;            // miss: -2, hit: +1; death at 0
 const modMult=m=>m===1?1:(m>1?1+(m-1)*.5:1-(1-m)*.6);
 
 const Game={
@@ -1239,15 +1461,59 @@ const Game={
       depthWrite:false,color:0x6da8ff,opacity:.5,blending:THREE.AdditiveBlending});
     this.dust=new THREE.Points(dg,this.dustMat);this.scene.add(this.dust);
     /* floating judgment frame marking the playfield bounds (not the grid) */
-    const frameTex=this._canvasTex((g,s)=>{const p=10,r=26;g.lineWidth=4;
-      g.strokeStyle='rgba(180,225,255,.9)';g.shadowColor='rgba(109,242,255,1)';g.shadowBlur=16;
+    this.frameMat=new THREE.MeshBasicMaterial({map:this._frameTex('round'),transparent:true,
+      opacity:.16,depthWrite:false,side:THREE.DoubleSide});
+    const fr=new THREE.Mesh(new THREE.PlaneGeometry(CELL*3.4,CELL*3.4),this.frameMat);
+    fr.position.set(0,0,HITZ-.05);this.scene.add(fr);
+    this.frame=fr;
+  },
+  _frameTex(style){
+    const stroke=g=>{g.lineWidth=4;g.strokeStyle='rgba(180,225,255,.9)';
+      g.shadowColor='rgba(109,242,255,1)';g.shadowBlur=16;};
+    if(style==='square')return this._canvasTex((g,s)=>{const p=10;stroke(g);
+      g.beginPath();g.moveTo(p,p);g.lineTo(s-p,p);g.lineTo(s-p,s-p);
+      g.lineTo(p,s-p);g.closePath();g.stroke();},256);
+    if(style==='corners')return this._canvasTex((g,s)=>{const p=10,L=64;stroke(g);g.lineWidth=6;
+      g.beginPath();
+      g.moveTo(p,p+L);g.lineTo(p,p);g.lineTo(p+L,p);
+      g.moveTo(s-p-L,p);g.lineTo(s-p,p);g.lineTo(s-p,p+L);
+      g.moveTo(s-p,s-p-L);g.lineTo(s-p,s-p);g.lineTo(s-p-L,s-p);
+      g.moveTo(p+L,s-p);g.lineTo(p,s-p);g.lineTo(p,s-p-L);g.stroke();},256);
+    if(style==='double')return this._canvasTex((g,s)=>{stroke(g);
+      for(const p of[8,22]){g.beginPath();g.moveTo(p,p);g.lineTo(s-p,p);
+        g.lineTo(s-p,s-p);g.lineTo(p,s-p);g.closePath();g.stroke();}},256);
+    if(style==='dashed')return this._canvasTex((g,s)=>{const p=10;stroke(g);
+      if(g.setLineDash)g.setLineDash([18,11]);
+      g.beginPath();g.moveTo(p,p);g.lineTo(s-p,p);g.lineTo(s-p,s-p);
+      g.lineTo(p,s-p);g.closePath();g.stroke();},256);
+    /* 'round' default: soft rounded square */
+    return this._canvasTex((g,s)=>{const p=10,r=26;stroke(g);
       g.beginPath();g.moveTo(p+r,p);g.lineTo(s-p-r,p);g.arcTo(s-p,p,s-p,p+r,r);
       g.lineTo(s-p,s-p-r);g.arcTo(s-p,s-p,s-p-r,s-p,r);g.lineTo(p+r,s-p);
       g.arcTo(p,s-p,p,s-p-r,r);g.lineTo(p,p+r);g.arcTo(p,p,p+r,p,r);g.closePath();g.stroke();},256);
-    this.frameMat=new THREE.MeshBasicMaterial({map:frameTex,transparent:true,opacity:.16,
-      depthWrite:false,side:THREE.DoubleSide});
-    const fr=new THREE.Mesh(new THREE.PlaneGeometry(CELL*3.4,CELL*3.4),this.frameMat);
-    fr.position.set(0,0,HITZ-.05);this.scene.add(fr);
+  },
+  _loadBorderImg(cb){
+    const url=Settings.getImg('border');
+    if(!url||typeof Image==='undefined'){this.borderImgTex=null;if(cb)cb();return;}
+    if(url===this._borderImgUrl){if(cb)cb();return;}
+    this._borderImgUrl=url;
+    const img=new Image();
+    img.onload=()=>{const t=new THREE.Texture(img);t.needsUpdate=true;
+      this.borderImgTex=t;this._borderKey=null;this.applyVisual(false);};
+    img.src=url;
+  },
+  _applyBorder(){
+    const style=Settings.get('borderStyle');
+    const key=style+'|'+(Settings.getImg('border')?1:0)+'|'+(this.borderImgTex?1:0);
+    if(key===this._borderKey)return;
+    this._borderKey=key;
+    this.frame.visible=style!=='none';
+    if(style==='custom'){
+      this._loadBorderImg();
+      if(this.borderImgTex){this.frameMat.map=this.borderImgTex;this.frameMat.needsUpdate=true;}
+    }else if(style!=='none'){
+      this.frameMat.map=this._frameTex(style);this.frameMat.needsUpdate=true;
+    }
   },
   _cursorTex(style){
     if(style==='ring')return this._canvasTex((g,s)=>{
@@ -1319,7 +1585,7 @@ const Game={
   _makePools(){
     const geo=new THREE.BoxGeometry(1,1,1);
     const edgeGeo=new THREE.EdgesGeometry(geo);
-    for(let i=0;i<72;i++){
+    for(let i=0;i<260;i++){
       const cube=new THREE.Mesh(geo,new THREE.MeshPhongMaterial({
         color:0x66d9ff,transparent:true,opacity:.42,shininess:100,
         specular:0xaaddff,emissive:0x113344,depthWrite:false}));
@@ -1392,7 +1658,10 @@ const Game={
     this.starMat.opacity=.2+.65*bg;
     this.dustMat.opacity=.15+.45*bg;
     this.ambient.intensity=.3+.4*bg;
-    this.frameMat.opacity=.06+.16*bg;
+    this.frameMat.opacity=Settings.get('borderStyle')==='custom'?(.35+.6*bg):(.06+.16*bg);
+    this._applyBorder();
+    const fov=clamp(Settings.get('fov')||70,30,130);
+    if(this.camera.fov!==fov){this.camera.fov=fov;this.camera.updateProjectionMatrix();}
     this._applyBackground();
     const op=Settings.get('noteOpacity'),bloom=Settings.get('bloom');
     for(const n of this.pool){
@@ -1426,6 +1695,7 @@ const Game={
   },
   /* ---------- run control ---------- */
   time(){return AudioEngine.ctx?AudioEngine.ctx.currentTime-this.zeroCtx:-99;},
+  _uiOffX:0,_uiOffY:0,
   _stopMusic(){
     Sequencer.stop();
     if(this.bufSrc){try{this.bufSrc.stop();}catch(e){}
@@ -1446,24 +1716,64 @@ const Game={
     this.applyVisual(false);
     this.cursor.x=0;this.cursor.y=0;
     this.cursorGroup.visible=true;this.trail.forEach(t=>{t.x=0;t.y=0;t.mesh.visible=true;});
-    /* zero the clocks: gameplay & audio share the AudioContext timeline */
-    this.zeroCtx=AudioEngine.ctx.currentTime+2.2;
+    /* zero the clocks: gameplay & audio share the AudioContext timeline.
+       In practice mode the clock is rewound so time() starts at startAt. */
+    this.startAt=this.practice?Math.max(0,this.practiceFrom||0):0;
+    this._practiceSkipped=0;
+    this.zeroCtx=AudioEngine.ctx.currentTime+2.2-this.startAt;
   },
-  startSong(song,diff){
+  /** Skip chart entries before the practice start point (uncounted). */
+  _skipBefore(){
+    if(!this.startAt)return;
+    while(this.spawnIdx<this.chart.length&&this.chart[this.spawnIdx].t<this.startAt-1e-9)
+      this.spawnIdx++;
+    this._practiceSkipped=this.spawnIdx;
+  },
+  startSong(song,diff,keepPractice){
+    if(!keepPractice){this.practice=false;this.practiceFrom=0;}
     this.customMap=null;this.customOrigin=null;
+    this.xpEligible=!this.practice;this.featured=null;
     this.song=song;this.diff=diff;
     this._begin(song);
     const m=this.mod;
     this.chart=buildChart(song,diff).notes.map(n=>({t:n.t/m,x:n.x,y:n.y}));
     this.endT=song.duration/m+1.2;
-    Sequencer.start(song,this.zeroCtx+Settings.get('audioOffset')/1000,m);
+    this._skipBefore();
+    Sequencer.start(song,this.zeroCtx+Settings.get('audioOffset')/1000,m,this.startAt);
+    this.curStars=starRating(buildChart(song,diff).notes);
     UI.enterGameplay(song,diff);
     Input.lock();
     this.state='play';
   },
+  /** Featured maps: bundled charts, session-attached audio, XP eligible. */
+  startFeatured(f,buffer,keepPractice){
+    if(!keepPractice){this.practice=false;this.practiceFrom=0;}
+    this.customMap=null;this.customOrigin=null;
+    this.xpEligible=!this.practice;this.featured=f;this._lastFeatBuf=buffer;
+    const notes=featNotes(f);
+    this.song={id:'f_'+f.id,title:f.title,artist:'mapped by '+f.by,
+      hue:265,bpm:0,duration:f.dur};
+    this.diff='featured';
+    this._begin(this.song);
+    const m=this.mod;
+    this.chart=notes.map(n=>({t:n.t/m,x:n.x,y:n.y}));
+    this.endT=f.dur/m+1.2;
+    this.curStars=f.stars;
+    this._skipBefore();
+    const src=AudioEngine.ctx.createBufferSource();
+    src.buffer=buffer;src.connect(AudioEngine.music);
+    if(src.playbackRate)src.playbackRate.value=m;
+    src.start(this.zeroCtx+this.startAt+Settings.get('audioOffset')/1000,this.startAt*m);
+    this.bufSrc=src;
+    UI.enterGameplay(this.song,'featured');
+    Input.lock();
+    this.state='play';
+  },
   /** Play a user-made map: the imported audio buffer replaces the synth. */
-  startCustom(map,origin){
+  startCustom(map,origin,keepPractice){
+    if(!keepPractice){this.practice=false;this.practiceFrom=0;}
     this.customMap=map;this.customOrigin=origin||'songs';
+    this.xpEligible=false;this.featured=null;
     this.song={id:map.id,title:map.title||'Untitled',artist:map.artist||'Custom Map',
       hue:map.hue||318,bpm:map.bpm,duration:map.duration};
     this.diff='custom';
@@ -1471,11 +1781,13 @@ const Game={
     const m=this.mod;
     this.chart=map.notes.slice().sort((a,b)=>a.t-b.t).map(n=>({t:n.t/m,x:n.x,y:n.y}));
     this.endT=map.duration/m+1.2;
+    this._skipBefore();
     const src=AudioEngine.ctx.createBufferSource();
     src.buffer=map.buffer;src.connect(AudioEngine.music);
     if(src.playbackRate)src.playbackRate.value=m;
-    src.start(this.zeroCtx+Settings.get('audioOffset')/1000);
+    src.start(this.zeroCtx+this.startAt+Settings.get('audioOffset')/1000,this.startAt*m);
     this.bufSrc=src;
+    this.curStars=starRating(this.chart);
     UI.enterGameplay(this.song,'custom');
     Input.lock();
     this.state='play';
@@ -1513,8 +1825,20 @@ const Game={
   retry(){
     this._stopMusic();
     if(AudioEngine.ctx&&AudioEngine.ctx.state==='suspended')AudioEngine.ctx.resume();
-    if(this.customMap)this.startCustom(this.customMap,this.customOrigin);
-    else this.startSong(this.song,this.diff);
+    const kp=this.practice;   // retrying in practice keeps the same anchor
+    if(this.featured)this.startFeatured(this.featured,this._lastFeatBuf,kp);
+    else if(this.customMap)this.startCustom(this.customMap,this.customOrigin,kp);
+    else this.startSong(this.song,this.diff,kp);
+  },
+  /** Practice: rewind to 5s before the death point. No XP, no bests, ever. */
+  startPractice(){
+    this._stopMusic();
+    if(AudioEngine.ctx&&AudioEngine.ctx.state==='suspended')AudioEngine.ctx.resume();
+    this.practice=true;
+    this.practiceFrom=Math.max(0,(this.deathT||0)-5);
+    if(this.featured)this.startFeatured(this.featured,this._lastFeatBuf,true);
+    else if(this.customMap)this.startCustom(this.customMap,this.customOrigin,true);
+    else this.startSong(this.song,this.diff,true);
   },
   finish(){
     this.state='done';
@@ -1522,12 +1846,29 @@ const Game={
     this.cursorGroup.visible=false;this.trail.forEach(t=>t.mesh.visible=false);
     setTimeout(()=>UI.showResults(this.stats,this.song,this.diff),700);
   },
+  /* Ghost fade, ported from the reference ComputeNoteAlpha():
+     fade-in near spawn, then an approach-side fade-out whose strength is 1
+     for full ghost and 0.55 for half ghost (reference Half* constants
+     are not public; same window, partial strength). Returns a multiplier. */
+  noteAlphaMul(dist,spawnDist){
+    const linstep=(a,b,v)=>a===b?(v>=a?1:0):clamp((v-a)/(b-a),0,1);
+    const FADE_LEN=.3, POW=1.3, START=18/50, END=6/50, HALF_STRENGTH=.55;
+    let mul=1;
+    const fd=spawnDist*FADE_LEN;
+    if(fd>0)mul=linstep(spawnDist,spawnDist-fd,dist);
+    const mode=Settings.get('ghostMode');
+    if(mode!=='half'&&mode!=='full')return mul;
+    const strength=mode==='full'?1:HALF_STRENGTH;
+    const fo=linstep(spawnDist*END,spawnDist*START,dist);
+    const out=(1-strength)+Math.pow(fo,POW)*strength;
+    return Math.min(mul,out);
+  },
   /* ---------- per-frame update ---------- */
   accuracy(){const s=this.stats;return s.judged?100*s.accSum/s.judged:100;},
   update(dt){
     const t=this.time();
     const speed=60*Settings.get('noteSpeed');
-    const approach=APPROACH_DIST*Settings.get('noteDistance')/speed;
+    const approach=Math.min(12,APPROACH_DIST*Settings.get('noteDistance')/speed);
     const joff=Settings.get('judgeOffset')/1000;
     const nsz=Settings.get('noteSize'),bloom=Settings.get('bloom');
     const cubeSize=CELL*.84*nsz;
@@ -1539,6 +1880,23 @@ const Game={
     /* cursor + trail */
     const cx=this.cursor.x,cy=this.cursor.y;
     this.cursorGroup.position.x=cx*CELL;this.cursorGroup.position.y=cy*CELL;
+    /* parallax layers, ported from the reference do_half_lock():
+       hlm=0.25; camera follows cursor by hlpower*hlm; the grid (notes) and
+       border layers move against the cursor by (setting*0.1)*hlm. */
+    {
+      const HLM=.25;
+      const offX=cx*CELL,offY=cy*CELL;
+      const cp=Settings.get('camParallax')||0;
+      this.camera.position.x=offX*cp*HLM;
+      this.camera.position.y=offY*cp*HLM;
+      const grm=(Settings.get('parallax')||0)*.1;
+      /* reference offsets the border layer by (-1,+1); scaled to our smaller field */
+      this.frame.position.x=-(offX*HLM*grm)-CELL*.02;
+      this.frame.position.y=-(offY*HLM*grm)+CELL*.02;
+      const uim=(Settings.get('uiParallax')||0)*.1;
+      this._uiOffX=-(offX*HLM*uim);
+      this._uiOffY=-(offY*HLM*uim);
+    }
     const trailOp=Settings.get('cursorTrail')?.4:0;
     for(let i=this.trail.length-1;i>0;i--){this.trail[i].x=this.trail[i-1].x;this.trail[i].y=this.trail[i-1].y;}
     this.trail[0].x=lerp(this.trail[0].x,cx,.55);this.trail[0].y=lerp(this.trail[0].y,cy,.55);
@@ -1552,8 +1910,15 @@ const Game={
     for(let i=this.active.length-1;i>=0;i--){
       const n=this.active[i],d=n.data;
       if(n.state===0){
+        n.group.position.x=d.x*CELL+this._uiOffX;
+        n.group.position.y=d.y*CELL+this._uiOffY;
         n.group.position.z=HITZ-(d.t-t)*speed;
         if(n.style==='3d'){n.group.rotation.x+=n.spin*dt;n.group.rotation.y+=n.spin*1.4*dt;}
+        const am=this.noteAlphaMul((d.t-t)*speed,approach*speed);
+        if(n.style==='3d'){n.cube.material.opacity=n.baseMain*am;
+          n.edges.material.opacity=.85*am;}
+        else n.flat.material.opacity=n.baseMain*am;
+        n.glow.material.opacity=n.baseGlow*am;
         const late=t-(d.t+joff);
         const over=Math.abs(cx-d.x)<th&&Math.abs(cy-d.y)<th;
         if(late>MISSW){this._miss(n);}
@@ -1570,6 +1935,8 @@ const Game={
         if(n.popT>.15)this._recycle(i);
         continue;
       }else{ /* missed — dim and fly past the camera */
+        n.group.position.x=d.x*CELL+this._uiOffX;
+        n.group.position.y=d.y*CELL+this._uiOffY;
         n.group.position.z=HITZ-(d.t-t)*speed;
         n.cube.material.opacity*= .93;n.edges.material.opacity*=.93;
         n.flat.material.opacity*=.93;n.glow.material.opacity*=.9;
@@ -1603,14 +1970,24 @@ const Game={
     n.data=d;n.state=0;n.popT=0;n.armed=false;n.style=style;
     n.group.scale.set(1,1,1);
     n.group.rotation.set(0,0,0);
+    const useSet=Settings.get('colorMode')!=='song';
+    if(useSet){
+      if(!this._setCols||this._setColsSrc!==Settings.getColors()){
+        this._setColsSrc=Settings.getColors();
+        this._setCols=this._setColsSrc.map(h=>new THREE.Color(h));
+      }
+    }
+    const setCol=useSet?this._setCols[this.spawnIdx%this._setCols.length]:null;
     if(style==='3d'){
       n.spin=.35+((hashStr(''+((d.t*997)|0))%100)/100)*.5;
       n.cube.visible=true;n.edges.visible=true;n.flat.visible=false;
+      if(setCol){n.cube.material.color.copy(setCol);
+        n.edges.material.color.copy(setCol);n.glow.material.color.copy(setCol);}
       n.cube.scale.set(cubeSize,cubeSize,cubeSize);
-      n.cube.material.opacity=Settings.get('noteOpacity');
+      n.cube.material.opacity=n.baseMain=Settings.get('noteOpacity');
       n.edges.scale.set(cubeSize,cubeSize,cubeSize);
       n.edges.material.opacity=.85;
-      n.glow.material.opacity=.38*bloom;
+      n.glow.material.opacity=n.baseGlow=.38*bloom;
     }else{
       n.spin=0;
       n.cube.visible=false;n.edges.visible=false;n.flat.visible=true;
@@ -1618,11 +1995,12 @@ const Game={
       if(n.flat.material.map!==tex)n.flat.material.map=tex; // same shader; no recompile needed
       const fs=cubeSize*(style==='circle'?1.2:1.12);
       n.flat.scale.set(fs,fs,1);
-      /* alternate song color / white so streams read clearly, like the reference */
-      n.flat.material.color.copy((this.spawnIdx&1)?this.colB:this.colA);
-      n.flat.material.opacity=Math.min(1,.5+Settings.get('noteOpacity'));
-      n.glow.material.color.copy((this.spawnIdx&1)?this.colB:this.colA);
-      n.glow.material.opacity=.22*bloom;
+      /* colorset cycles per note; song mode alternates theme color / white */
+      const col=setCol||((this.spawnIdx&1)?this.colB:this.colA);
+      n.flat.material.color.copy(col);
+      n.flat.material.opacity=n.baseMain=Math.min(1,.5+Settings.get('noteOpacity'));
+      n.glow.material.color.copy(col);
+      n.glow.material.opacity=n.baseGlow=.22*bloom;
     }
     n.glow.scale.set(cubeSize*2.5*(0.5+0.6*bloom),cubeSize*2.5*(0.5+0.6*bloom),1);
     n.group.position.set(d.x*CELL,d.y*CELL,SPAWNZ);
@@ -1641,7 +2019,7 @@ const Game={
     if(tier===0)s.p++;else if(tier===1)s.gr++;else s.gd++;
     const pts=Math.round(base*(1+Math.min(s.combo,100)/100)*modMult(this.mod));
     s.score+=pts;s.lastPts=pts;
-    s.hp=Math.min(MAXHP,s.hp+.25);
+    s.hp=Math.min(MAXHP,s.hp+1);
     AudioEngine.hitSound(tier);
     n.state=1;n.popT=0;
     if(!Settings.get('hitPop'))n.group.visible=false;   // clean mode: no grow animation
@@ -1652,7 +2030,7 @@ const Game={
   _miss(n){
     const s=this.stats;
     s.combo=0;s.judged++;s.m++;
-    s.hp-=1;
+    s.hp-=2;
     n.state=2;
     UI.onJudge(3,s);
     if(s.hp<=0){
@@ -1663,6 +2041,7 @@ const Game={
   },
   fail(){
     if(this.state!=='play')return;
+    this.deathT=this.time();
     this.state='done';
     this.stats.died=true;
     this._stopMusic();
@@ -1746,10 +2125,13 @@ const SETTINGS_SCHEMA=[
   {tab:'customize',key:'noteStyle',label:'Note Style',type:'select',
     options:[['2d','Hollow Squares'],['solid','Solid Squares'],['circle','Rings'],
              ['diamond','Diamonds'],['3d','3D Cubes']]},
-  {tab:'customize',key:'noteSize',label:'Note Size',sub:'visual only',type:'range',min:.6,max:1.4,step:.05,fmt:v=>v.toFixed(2)+'×'},
-  {tab:'customize',key:'noteOpacity',label:'Note Transparency',type:'range',min:.1,max:.9,step:.02,fmt:v=>Math.round(v*100)+'%'},
+  {tab:'customize',key:'colorMode',label:'Note Colors',type:'select',
+    options:[['set','Colorset (cycles)'],['song','Song Theme']]},
+  {tab:'customize',key:'noteColorset',label:'Colorset',sub:'one hex color per line, like Rhythia colorsets',type:'colorset'},
+  {tab:'customize',key:'noteSize',label:'Note Size',sub:'visual only',type:'range',min:.2,max:3,step:.03,fmt:v=>v.toFixed(2)+'×'},
+  {tab:'customize',key:'noteOpacity',label:'Note Transparency',type:'range',min:.01,max:1,step:.01,fmt:v=>Math.round(v*100)+'%'},
   {tab:'customize',sec:'Note Effects'},
-  {tab:'customize',key:'bloom',label:'Note Glow',sub:'0 for plain, clean notes',type:'range',min:0,max:2,step:.05,fmt:v=>v.toFixed(2)+'×'},
+  {tab:'customize',key:'bloom',label:'Note Glow',sub:'0 for plain, clean notes',type:'range',min:0,max:4,step:.04,fmt:v=>v.toFixed(2)+'×'},
   {tab:'customize',key:'hitPop',label:'Hit Pop Animation',sub:'off makes notes vanish instantly, no grow effect',type:'toggle'},
   {tab:'customize',key:'hitRings',label:'Hit Rings',type:'toggle'},
   {tab:'customize',key:'hitParticles',label:'Hit Particles',type:'toggle'},
@@ -1757,7 +2139,7 @@ const SETTINGS_SCHEMA=[
   {tab:'customize',sec:'Cursor'},
   {tab:'customize',key:'cursorStyle',label:'Cursor Style',type:'select',
     options:[['dot','Dot'],['ring','Ring'],['square','Square'],['cross','Crosshair'],['custom','Custom Image']]},
-  {tab:'customize',key:'cursorSize',label:'Cursor Size',sub:'also scales the hitbox',type:'range',min:.5,max:1.6,step:.05,fmt:v=>v.toFixed(2)+'×'},
+  {tab:'customize',key:'cursorSize',label:'Cursor Size',sub:'also scales the hitbox',type:'range',min:.1,max:3,step:.03,fmt:v=>v.toFixed(2)+'×'},
   {tab:'customize',key:'cursorColor',label:'Cursor Color',type:'color'},
   {tab:'customize',key:'cursorTrail',label:'Cursor Trail',type:'toggle'},
   {tab:'customize',key:'cursorImg',label:'Custom Cursor Image',sub:'used when style is Custom Image',type:'image',imgKind:'cursor'},
@@ -1766,18 +2148,41 @@ const SETTINGS_SCHEMA=[
     options:[['space','Starfield'],['grid','Neon Grid'],['minimal','Clean Void'],['custom','Custom Image']]},
   {tab:'customize',key:'bgBrightness',label:'Background Brightness',type:'range',min:0,max:1,step:.02,fmt:v=>Math.round(v*100)+'%'},
   {tab:'customize',key:'bgImg',label:'Custom Background Image',sub:'used when background is Custom Image',type:'image',imgKind:'bg'},
+  {tab:'customize',sec:'Playfield Border'},
+  {tab:'customize',key:'borderStyle',label:'Border Style',type:'select',
+    options:[['round','Rounded Square'],['square','Full Square'],['corners','Corner Brackets'],
+             ['double','Double Square'],['dashed','Dashed Square'],['none','No Border'],
+             ['custom','Custom Image']]},
+  {tab:'customize',key:'borderImg',label:'Custom Border Image',sub:'used when border is Custom Image',type:'image',imgKind:'border'},
   /* -------- GAMEPLAY -------- */
   {tab:'gameplay',sec:'Gameplay'},
-  {tab:'gameplay',key:'noteSpeed',label:'Approach Rate',sub:'how fast notes travel toward you',type:'range',min:.5,max:2.5,step:.05,fmt:v=>v.toFixed(2)+'×'},
-  {tab:'gameplay',key:'noteDistance',label:'Note Distance',sub:'how far away notes appear',type:'range',min:.5,max:1.5,step:.05,fmt:v=>Math.round(133*v)+'m'},
-  {tab:'gameplay',key:'sensitivity',label:'Mouse Sensitivity',type:'range',min:.2,max:3,step:.05,fmt:v=>v.toFixed(2)+'×'},
-  {tab:'gameplay',key:'audioOffset',label:'Audio Offset',sub:'shifts the music against the visuals',type:'range',min:-200,max:200,step:5,fmt:v=>v+' ms'},
-  {tab:'gameplay',key:'judgeOffset',label:'Judgment Offset Calibration',sub:'raise if your hits register early',type:'range',min:-100,max:100,step:5,fmt:v=>v+' ms'},
+  {tab:'gameplay',key:'noteSpeed',label:'Approach Rate',sub:'how fast notes travel toward you',type:'range',min:.1,max:5,step:.05,fmt:v=>v.toFixed(2)+'×'},
+  {tab:'gameplay',key:'noteDistance',label:'Note Distance',sub:'how far away notes appear',type:'range',min:.2,max:3,step:.03,fmt:v=>Math.round(133*v)+'m'},
+  {tab:'gameplay',key:'sensitivity',label:'Mouse Sensitivity',type:'range',min:.05,max:10,step:.1,fmt:v=>v.toFixed(2)+'×'},
+  {tab:'gameplay',key:'parallax',label:'Grid Parallax',sub:'border layer shifts against your cursor, rhythia-style',type:'range',min:-5,max:5,step:.05,fmt:v=>v.toFixed(2)+'×'},
+  {tab:'gameplay',key:'uiParallax',label:'Note Parallax',sub:'the note field itself shifts against your cursor (visual only)',type:'range',min:-5,max:5,step:.05,fmt:v=>v.toFixed(2)+'×'},
+  {tab:'gameplay',key:'camParallax',label:'Camera Parallax (Half Lock)',sub:'the camera follows your cursor',type:'range',min:-2,max:2,step:.05,fmt:v=>v.toFixed(2)+'×'},
+  {tab:'gameplay',key:'fov',label:'Field of View',type:'range',min:40,max:115,step:1,fmt:v=>v+'°'},
+  {tab:'gameplay',key:'ghostMode',label:'Ghost Notes',sub:'notes fade as they get close — half dims them, full makes them vanish',type:'select',
+    options:[['off','Off'],['half','Half Ghost'],['full','Full Ghost']]},
+  {tab:'gameplay',key:'audioOffset',label:'Audio Offset',sub:'shifts the music against the visuals',type:'range',min:-500,max:500,step:10,fmt:v=>v+' ms'},
+  {tab:'gameplay',key:'judgeOffset',label:'Judgment Offset Calibration',sub:'raise if your hits register early',type:'range',min:-250,max:250,step:5,fmt:v=>v+' ms'},
   /* -------- OTHER -------- */
   {tab:'other',sec:'Audio'},
   {tab:'other',key:'masterVol',label:'Master Volume',type:'range',min:0,max:1,step:.01,fmt:v=>Math.round(v*100)+'%'},
   {tab:'other',key:'musicVol',label:'Music Volume',type:'range',min:0,max:1,step:.01,fmt:v=>Math.round(v*100)+'%'},
   {tab:'other',key:'hitVol',label:'Hit Sound Volume',type:'range',min:0,max:1,step:.01,fmt:v=>Math.round(v*100)+'%'},
+  {tab:'other',key:'hitSoundStyle',label:'Hit Sound',
+    sub:'pick a built-in sound or import your own short clip below',
+    type:'select',options:[['classic','Classic'],['click','Click'],['soft','Soft'],
+    ['clap','Clap'],['tick','Tick'],['custom','Custom']]},
+  {tab:'other',key:'hitsoundFile',label:'Custom Hit Sound',
+    sub:'import a short audio file (wav/ogg/mp3, keep it under ~1s)',
+    type:'audiofile',imgKind:'hitsound'},
+  {tab:'other',sec:'Community'},
+  {tab:'other',key:'communityRepo',label:'Community Maps Repo',
+    sub:'public github repo (or repo/folder) holding .sspm files \u2014 new uploads appear automatically',
+    type:'text',placeholder:'yourname/jarvia-maps'},
   {tab:'other',sec:'Display'},
   {tab:'other',key:'showFps',label:'FPS Counter',type:'toggle'},
   {tab:'other',key:'vsync',label:'VSync',sub:'off runs on a timer loop (browser-dependent)',type:'toggle'},
@@ -1797,12 +2202,14 @@ const UI={
   setText(id,v){this.$(id).textContent=v;},
   init(){
     this.hud=this.$('hud');
-    this.buildSongList();this.buildSettings();
+    this.buildSongList();this.buildSettings();this.updateRank();
     const on=(id,fn)=>this.$(id).addEventListener('click',fn);
     this.$('set-tabs').addEventListener('click',e=>{
       const b=e.target;
       if(b&&b.dataset&&b.dataset.tab)this.setTab(b.dataset.tab);});
     this.$('file-img').addEventListener('change',e=>this._onImgFile(e));
+    this.$('file-hitsound').addEventListener('change',e=>this._onSndFile(e));
+    this.$('file-colors').addEventListener('change',e=>this._onColorsFile(e));
     on('btn-play',()=>{AudioEngine.init();this.show('screen-songs');});
     /* mods */
     const speedWrap=this.$('mod-speed');
@@ -1811,6 +2218,8 @@ const UI={
       for(const b of speedWrap.children)
         if(b.classList)b.classList.toggle('on',+b.dataset.v===sm);
       this.$('mod-nofail').classList.toggle('on',!!Settings.get('noFail'));
+      const ci=this.$('mod-speed-custom');
+      if(ci&&document.activeElement!==ci)ci.value=sm.toFixed(2);
       const bits=[];
       if(sm>1)bits.push('score ×'+(1+(sm-1)*.5).toFixed(2));
       else if(sm<1)bits.push('score ×'+(1-(1-sm)*.6).toFixed(2));
@@ -1820,6 +2229,9 @@ const UI={
     speedWrap.addEventListener('click',e=>{
       const b=e.target;
       if(b&&b.dataset&&b.dataset.v){Settings.set('speedMod',+b.dataset.v);syncMods();}});
+    this.$('mod-speed-custom').addEventListener('change',e=>{
+      const v=clamp(+e.target.value||1,.25,3);
+      Settings.set('speedMod',Math.round(v*100)/100);syncMods();});
     on('mod-nofail',()=>{Settings.set('noFail',!Settings.get('noFail'));syncMods();});
     syncMods();
     on('btn-editor',()=>{AudioEngine.init();Editor.open();});
@@ -1835,6 +2247,7 @@ const UI={
     on('btn-pause-settings',()=>{this.settingsReturn='screen-pause';this.show('screen-settings');});
     on('btn-quit',()=>Game.quit('screen-songs'));
     on('btn-res-retry',()=>Game.retry());
+    on('btn-res-practice',()=>Game.startPractice());
     on('btn-res-songs',()=>Game.quit('screen-songs'));
     on('btn-res-menu',()=>Game.quit('screen-main'));
     document.addEventListener('visibilitychange',()=>{
@@ -1842,7 +2255,8 @@ const UI={
   },
   show(id){
     document.body.classList.add('menus');
-    if(id==='screen-songs')this.buildCustomList();
+    if(id==='screen-songs'){this.buildSongList();this.buildCustomList();}
+    if(id==='screen-main')this.updateRank();
     for(const s of this.screens)this.$(s).classList.toggle('active',s===id);
   },
   hideScreens(){for(const s of this.screens)this.$(s).classList.remove('active');},
@@ -1856,57 +2270,131 @@ const UI={
     else if(active==='screen-editor'){Editor.stopPreview();this.show('screen-main');}
   },
   /* ---------- song / difficulty menus ---------- */
+  _row(color,ti,by,metaHtml,stars,bestTxt,needTxt){
+    const row=document.createElement('div');row.className='song-row';
+    row.style.setProperty('--row-c',color);
+    const who=document.createElement('div');who.className='who';
+    who.innerHTML=`<div class="ti">${ti}</div><div class="by">${by}</div>`;
+    const meta=document.createElement('div');meta.className='meta';meta.innerHTML=metaHtml;
+    row.appendChild(who);row.appendChild(meta);
+    if(needTxt){const nd=document.createElement('div');nd.className='need';nd.textContent=needTxt;row.appendChild(nd);}
+    const bs=document.createElement('div');bs.className='best';bs.textContent=bestTxt||'';row.appendChild(bs);
+    const st=document.createElement('div');st.className='stars';
+    if(stars!=null){st.textContent='\u2605 '+stars.toFixed(1);st.style.color=starColor(stars);}
+    row.appendChild(st);
+    return row;
+  },
+  _bestTxt(id,diff){
+    const b=Settings.best(id,diff);
+    return b?(b.grade+' \u00b7 '+fmtNum(b.score)):'';
+  },
+  _songStars(s){ /* stars of the hardest chart, cached */
+    this._ss=this._ss||{};
+    if(this._ss[s.id]==null)this._ss[s.id]=starRating(buildChart(s,'master').notes);
+    return this._ss[s.id];
+  },
   buildSongList(){
     const wrap=this.$('song-list');wrap.innerHTML='';
+    this.setText('lib-n-orig',SONGS.length+' songs \u00b7 5 charts each \u00b7 earns xp');
     for(const s of SONGS){
-      const card=document.createElement('div');card.className='song-card';
-      card.style.setProperty('--hue',`hsl(${s.hue},85%,60%)`);
       const m=Math.floor(s.duration/60),sec=String(Math.round(s.duration%60)).padStart(2,'0');
-      card.innerHTML=`<div class="s-title">${s.title}</div>
-        <div class="s-artist">${s.artist}</div>
-        <div class="s-meta"><span><b>${s.bpm}</b> bpm</span><span><b>${m}:${sec}</b></span><span><b>5</b> charts</span></div>`;
-      card.addEventListener('click',()=>this.openDiff(s));
-      wrap.appendChild(card);
+      const row=this._row(`hsl(${s.hue},85%,60%)`,esc(s.title),esc(s.artist),
+        `${s.bpm} bpm \u00b7 ${m}:${sec}`,this._songStars(s),this._bestTxt(s.id,'master'));
+      row.addEventListener('click',()=>this.openDiff(s));
+      wrap.appendChild(row);
     }
+    this.buildFeaturedList();
+  },
+  buildFeaturedList(){this.buildCommunityList();},
+  async buildCommunityList(){
+    const wrap=this.$('featured-list');
+    const seq=(this._commSeq=(this._commSeq||0)+1);
+    if(!Community.repoInfo()){
+      this.setText('lib-n-feat','set a github repo in settings \u2192 other \u00b7 earns xp');
+      wrap.innerHTML='';
+      const d=document.createElement('div');d.className='ed-empty';
+      d.textContent='connect a public github repo of .sspm files and every map you upload there shows up here.';
+      wrap.appendChild(d);
+      return;
+    }
+    this.setText('lib-n-feat','checking repo\u2026');
+    const res=await Community.fetchList();
+    if(seq!==this._commSeq)return; // stale render
+    wrap.innerHTML='';
+    if(res.err){
+      this.setText('lib-n-feat','couldn\u2019t reach the repo \u00b7 '+res.err);
+      return;
+    }
+    const list=res.list;
+    this.setText('lib-n-feat',list.length+' maps in repo \u00b7 downloads on first play \u00b7 earns xp');
+    if(!list.length){
+      const d=document.createElement('div');d.className='ed-empty';
+      d.textContent='no .sspm files in that repo yet \u2014 upload some!';
+      wrap.appendChild(d);return;
+    }
+    for(const entry of list){
+      const cached=Community.cache[entry.id];
+      const f=cached&&cached.f;
+      const mb=(entry.size/1048576).toFixed(1);
+      const row=this._row('var(--violet)',
+        esc(f?f.title:entry.title),
+        f?('mapped by '+esc(f.by)):('\u2601 '+mb+' MB \u00b7 click to download & play'),
+        f?`${fmtNum(f.notes.length)} notes \u00b7 ${this.fmtTime(f.dur)}`:'',
+        f?f.stars:null,
+        this._bestTxt(entry.id,'featured'));
+      const st=document.createElement('span');st.className='dlst';row.appendChild(st);
+      row.addEventListener('click',async()=>{
+        if(row._busy)return;row._busy=true;
+        try{
+          st.textContent=cachedNow(entry)?'':'downloading\u2026';
+          const rec=await Community.load(entry);
+          Game.startFeatured(rec.f,rec.buffer);
+        }catch(err){
+          st.textContent=String((err&&err.message)||err);
+          row._busy=false;
+        }
+      });
+      wrap.appendChild(row);
+    }
+    function cachedNow(e){return !!Community.cache[e.id];}
   },
   buildCustomList(){
     const maps=Settings.loadCustom();
     const sec=this.$('custom-sec'),wrap=this.$('custom-list');
     wrap.innerHTML='';
-    sec.style.display=maps.length?'block':'none';
+    sec.style.display=maps.length?'flex':'none';
+    this.setText('lib-n-cust',maps.length+' saved \u00b7 no xp');
     for(const m of maps){
-      const card=document.createElement('div');card.className='song-card';
-      card.style.setProperty('--hue','hsl(318,85%,64%)');
       const dur=m.duration||0,mm=Math.floor(dur/60),ss=String(Math.round(dur%60)).padStart(2,'0');
       const hasAudio=!!Editor.buffers[m.id];
-      card.innerHTML=`<div class="s-title">${esc(m.title||'Untitled')}</div>
-        <div class="s-artist">${esc(m.artist||'Custom Map')}</div>
-        <div class="s-meta"><span><b>${m.bpm}</b> bpm</span><span><b>${mm}:${ss}</b></span><span><b>${m.notes.length}</b> notes</span></div>
-        <div class="s-meta" style="margin-top:8px"><span style="color:${hasAudio?'var(--green)':'var(--gold)'}">${hasAudio?'ready':'attach audio to play'}</span></div>`;
-      card.addEventListener('click',()=>Editor.playCustom(m.id,'songs'));
-      wrap.appendChild(card);
+      const st=starRating(m.notes.map(n=>({t:n.t,x:n.x,y:n.y})).sort((a,b)=>a.t-b.t));
+      const row=this._row('#ff5fd6',esc(m.title||'Untitled'),esc(m.artist||'Custom Map'),
+        `${m.notes.length} notes \u00b7 ${mm}:${ss}`,st,'',hasAudio?'':'attach audio');
+      row.addEventListener('click',()=>Editor.playCustom(m.id,'songs'));
+      wrap.appendChild(row);
     }
   },
   openDiff(song){
     this._selectedSong=song;
     this.$('diff-title').textContent=song.title;
-    this.$('diff-sub').textContent=song.artist+' · '+song.bpm+' bpm';
+    this.$('diff-sub').textContent=song.artist+' \u00b7 '+song.bpm+' bpm';
     const wrap=this.$('diff-list');wrap.innerHTML='';
     for(const d of DIFF_ORDER){
       const meta=DIFF_META[d],c=buildChart(song,d);
+      const st=starRating(c.notes);
       const card=document.createElement('div');card.className='diff-card';
       card.style.setProperty('--dc',meta.color);
       const best=Settings.best(song.id,d);
       card.innerHTML=`<div class="d-name">${meta.name}</div>
-        <div class="d-stars">${'★'.repeat(meta.stars)}</div>
+        <div class="d-stars" style="color:${starColor(st)}">\u2605 ${st.toFixed(1)}</div>
         <div class="d-meta">${c.count} notes<br>${c.nps.toFixed(1)} nps avg</div>
-        <div class="d-best">${best?best.grade+' · '+best.acc.toFixed(2)+'%':''}</div>`;
+        <div class="d-best">${best?best.grade+' \u00b7 '+best.acc.toFixed(2)+'%':''}</div>`;
       card.addEventListener('click',()=>Game.startSong(song,d));
       wrap.appendChild(card);
     }
     this.show('screen-diff');
   },
-  /* ---------- settings menu (auto-generated & auto-saved) ---------- */
+  /* ---------- settings menu (tabbed, auto-generated & auto-saved) ---------- */
   activeTab:'customize',
   setTab(tab){
     this.activeTab=tab;
@@ -1916,6 +2404,38 @@ const UI={
     this.buildSettings();
   },
   pickImage(cb){this._imgCb=cb;this.$('file-img').click();},
+  pickAudioFile(cb){this._sndCb=cb;this.$('file-hitsound').click();},
+  _onSndFile(e){
+    const f=e.target.files&&e.target.files[0];e.target.value='';
+    const cb=this._sndCb;this._sndCb=null;
+    if(!f||!cb)return;
+    if(f.size>800*1024){alert('keep the hit sound under 800 KB \u2014 shorter is snappier');return;}
+    const r=new FileReader();
+    r.onload=()=>cb(r.result);
+    r.readAsDataURL(f);
+  },
+  pickColorset(cb){this._colorsCb=cb;this.$('file-colors').click();},
+  async _onColorsFile(e){
+    const f=e.target.files&&e.target.files[0];
+    e.target.value='';
+    const cb=this._colorsCb;this._colorsCb=null;
+    if(!f||!cb)return;
+    try{
+      const txt=await f.text();
+      const list=UI.parseColorset(txt);
+      if(list.length)cb(list);
+    }catch(err){}
+  },
+  parseColorset(txt){
+    const out=[];
+    for(let line of String(txt).split(/\r?\n/)){
+      line=line.trim();
+      if(!line||line.startsWith('//'))continue;
+      const m=line.match(/#?([0-9a-fA-F]{6})\b/);
+      if(m)out.push('#'+m[1].toLowerCase());
+    }
+    return out;
+  },
   _onImgFile(e){
     const f=e.target.files&&e.target.files[0];
     e.target.value='';
@@ -1971,15 +2491,62 @@ const UI={
         const paint=()=>{const has=!!Settings.getImg(item.imgKind);
           st.textContent=has?'image set':'none';st.classList.toggle('set',has);};
         paint();
-        const b=document.createElement('button');b.className='btn small';b.textContent='Import…';
+        const b=document.createElement('button');b.className='btn small';b.textContent='Import\u2026';
         b.addEventListener('click',()=>this.pickImage(url=>{
           Settings.setImg(item.imgKind,url);paint();
           Game.applyVisual(true);
           if(!Settings.persistOk)st.textContent='image set (this session)';
         }));
-        const x=document.createElement('span');x.className='img-clear';x.textContent='✕';
+        const x=document.createElement('span');x.className='img-clear';x.textContent='\u2715';
         x.title='remove image';
         x.addEventListener('click',()=>{Settings.setImg(item.imgKind,null);paint();Game.applyVisual(true);});
+        wrap.appendChild(b);wrap.appendChild(st);wrap.appendChild(x);
+        ctl.appendChild(wrap);
+      }else if(item.type==='audiofile'){
+        const wrap=document.createElement('div');wrap.className='img-ctl';
+        const st=document.createElement('span');st.className='img-status';
+        const paint=()=>{const has=!!Settings.getImg(item.imgKind);
+          st.textContent=has?'sound set':'none';st.classList.toggle('set',has);};
+        paint();
+        const b=document.createElement('button');b.className='btn small';b.textContent='Import\u2026';
+        b.addEventListener('click',()=>this.pickAudioFile(url=>{
+          Settings.setImg(item.imgKind,url);
+          Settings.set('hitSoundStyle','custom');
+          AudioEngine.invalidateCustomHit();
+          AudioEngine.init();
+          if(AudioEngine.ctx&&AudioEngine.ctx.state==='suspended')AudioEngine.ctx.resume();
+          AudioEngine._loadCustomHit();
+          setTimeout(()=>AudioEngine.hitSound(0),250);   /* preview */
+          paint();this.buildSettings();
+          if(!Settings.persistOk)st.textContent='sound set (this session)';
+        }));
+        const x=document.createElement('span');x.className='img-clear';x.textContent='\u2715';
+        x.title='remove sound';
+        x.addEventListener('click',()=>{Settings.setImg(item.imgKind,null);
+          AudioEngine.invalidateCustomHit();paint();});
+        wrap.appendChild(b);wrap.appendChild(st);wrap.appendChild(x);
+        ctl.appendChild(wrap);
+      }else if(item.type==='text'){
+        const inp=document.createElement('input');inp.className='set-text';
+        inp.type='text';inp.placeholder=item.placeholder||'';
+        inp.value=Settings.get(item.key)||'';
+        inp.addEventListener('change',()=>{
+          Settings.set(item.key,inp.value.trim());
+          Community.list=null;   // repo changed: refetch next time
+        });
+        ctl.appendChild(inp);
+      }else if(item.type==='colorset'){
+        const wrap=document.createElement('div');wrap.className='img-ctl';
+        const st=document.createElement('span');st.className='img-status set';
+        const paint=()=>{const c=Settings.getColors();
+          st.textContent=c.length+' colors'+(c===DEFAULT_COLORSET?' (rainbowfreeze)':'');};
+        paint();
+        const b=document.createElement('button');b.className='btn small';b.textContent='Import\u2026';
+        b.addEventListener('click',()=>this.pickColorset(list=>{
+          Settings.setColors(list);paint();}));
+        const x=document.createElement('span');x.className='img-clear';x.textContent='\u21ba';
+        x.title='reset to default rainbow';
+        x.addEventListener('click',()=>{Settings.setColors(null);paint();});
         wrap.appendChild(b);wrap.appendChild(st);wrap.appendChild(x);
         ctl.appendChild(wrap);
       }else if(item.type==='action'&&item.key==='fullscreen'){
@@ -1994,15 +2561,20 @@ const UI={
     const note=document.createElement('div');note.className='storage-note';
     note.textContent=Settings.persistOk
       ?'Settings save automatically to your browser.'
-      :'Browser storage is unavailable here — settings apply for this session only.';
+      :'Browser storage is unavailable here \u2014 settings apply for this session only.';
     panel.appendChild(note);
   },
-  /* ---------- gameplay chrome ---------- */
   fmtTime(s){s=Math.max(0,s||0);const m=Math.floor(s/60);
     return m+':'+String(Math.floor(s%60)).padStart(2,'0');},
+  updateRank(){
+    const p=XP.progress(Settings.getBP()),r=XP.rankFor(p.level);
+    this.setText('mr-lv','LV '+p.level);
+    const nm=this.$('mr-name');nm.textContent=r.name;nm.style.color=r.color;
+    this.$('mr-lv').style.borderColor=r.color;
+  },
   setHp(hp){
     const wrap=this.$('hud-hp');if(!wrap.children)return;
-    const low=hp<=2;
+    const low=hp<=4;
     for(let i=0;i<wrap.children.length;i++){const p=wrap.children[i];
       if(!p.classList)continue;
       p.classList.toggle('f',hp>=i+.5);
@@ -2016,13 +2588,14 @@ const UI={
     let dl=DIFF_META[diff].name.toUpperCase();
     if(Game.mod!==1)dl+=' · '+Game.mod.toFixed(2)+'×';
     if(Game.noFail)dl+=' · NO FAIL';
+    if(Game.practice)dl+=' · PRACTICE';
     d.textContent=dl;
     d.style.color=DIFF_META[diff].color;
     this.setHp(MAXHP);
     this.setText('hud-score','0');this.setText('hud-acc','100.00%');
     this.setText('hud-combo-num','0');this.setText('hud-points','0');
     this.setText('hud-miss','0');this.setText('hud-pauses','0');
-    this.setText('hud-notes','0/'+Game.chart.length);
+    this.setText('hud-notes','0/'+(Game.chart.length-(Game._practiceSkipped||0)));
     const g=this.$('hud-grade');g.textContent='SS';g.style.color='#ffd36b';
     this.setText('hud-time','0:00 / '+this.fmtTime(song.duration));
     this.$('hud-progress').style.width='0%';
@@ -2062,7 +2635,7 @@ const UI={
     this.setText('hud-combo-num',s.combo);
     this.setText('hud-points',tier===3?'0':fmtNum(s.lastPts));
     this.setText('hud-miss',s.m);
-    this.setText('hud-notes',s.judged+'/'+Game.chart.length);
+    this.setText('hud-notes',s.judged+'/'+(Game.chart.length-(Game._practiceSkipped||0)));
     const g=GRADES.find(x=>acc>=x[0]);
     const ge=this.$('hud-grade');ge.textContent=g[1];ge.style.color=g[2];
     this.setHp(s.hp);
@@ -2084,7 +2657,10 @@ const UI={
   showResults(stats,song,diff,failed){
     const acc=Game.accuracy();
     const g=GRADES.find(x=>acc>=x[0]);
-    this.$('res-song').textContent=song.title+' — '+DIFF_META[diff].name;
+    this.$('res-song').textContent=song.title+' — '+DIFF_META[diff].name+
+      (Game.practice?' · PRACTICE':'');
+    /* practice offer appears whenever this run ended in a death */
+    this.$('btn-res-practice').style.display=(stats.died||failed)?'':'none';
     const ge=this.$('res-grade');
     if(failed){ge.textContent='F';ge.style.color='#ff5f7a';
       ge.style.textShadow='0 0 50px #ff5f7a88';}
@@ -2101,12 +2677,38 @@ const UI={
     this.$('res-mods').textContent=mods.length?mods.join(' · '):'none';
     /* bests only count clean, unmodified-speed clears */
     let isBest=false;
-    if(!failed&&!stats.died&&Game.mod===1){
+    if(!failed&&!stats.died&&Game.mod===1&&!Game.practice){
       const prev=Settings.best(song.id,diff);
       isBest=!prev||stats.score>prev.score;
       if(isBest)Settings.saveBest(song.id,diff,{score:stats.score,acc,grade:g[1]});
     }
     this.$('res-newbest').style.visibility=isBest?'visible':'hidden';
+    /* xp: only originals and featured maps pay out */
+    const xpEl=this.$('res-xp');
+    if(Game.xpEligible){
+      const beforeLvl=XP.levelFor(Settings.getBP());
+      let gain=XP.reward(Game.curStars||1,acc)*modMult(Game.mod);
+      if(failed)gain*=.15;
+      else if(stats.died)gain*=.3;
+      gain=Math.floor(gain);
+      const bp=Settings.addBP(gain);
+      const p=XP.progress(bp),r=XP.rankFor(p.level);
+      xpEl.textContent='+'+fmtNum(gain);
+      xpEl.style.color='var(--ion)';
+      const rk=this.$('res-rank');
+      rk.innerHTML=`<span style="color:${r.color}">${r.name}</span> \u00b7 LV ${p.level}`+
+        (p.level>beforeLvl?' <span id="res-lvlup">\u2191 LEVEL UP</span>':'');
+      const fill=this.$('res-lvlfill');
+      fill.style.width='0%';
+      setTimeout(()=>{fill.style.width=Math.min(100,100*p.into/Math.max(1,p.need))+'%';},60);
+      this.setText('res-lvltext',fmtNum(p.into)+' / '+fmtNum(p.need)+' xp to LV '+(p.level+1));
+      this.$('res-lvlwrap').style.display='block';
+    }else{
+      xpEl.textContent=Game.practice?'\u2014 (practice earns no xp)'
+        :'\u2014 (custom maps earn no xp)';
+      xpEl.style.color='var(--text-dim)';
+      this.$('res-lvlwrap').style.display='none';
+    }
     this.hud.classList.remove('active');
     this.show('screen-results');
   }
@@ -2207,6 +2809,69 @@ function parseSSPM(ab){
   }
   throw new Error('unsupported .sspm version '+ver);
 }
+
+/* ============ COMMUNITY MAPS (GitHub-backed) ============
+   Point the "Community Maps Repo" setting at a public GitHub repo holding
+   .sspm files. The list is fetched from the GitHub contents API; each map
+   downloads on first play, parses locally, and its embedded audio decodes
+   in the browser. Nothing map-related is bundled in this file anymore. */
+const Community={
+  list:null,listAt:0,cache:{},pending:{},
+  repoInfo(){
+    const raw=(Settings.get('communityRepo')||'').trim();
+    if(!raw)return null;
+    const m=raw.replace(/^https?:\/\/github\.com\//,'').replace(/\.git$/,'')
+      .match(/^([\w.-]+)\/([\w.-]+)(?:\/(.*))?$/);
+    if(!m)return null;
+    return {owner:m[1],repo:m[2],path:(m[3]||'').replace(/\/+$/,'')};
+  },
+  async fetchList(force){
+    const info=this.repoInfo();
+    if(!info)return {err:'norepo'};
+    if(!force&&this.list&&Date.now()-this.listAt<60000)return {list:this.list};
+    try{
+      const url='https://api.github.com/repos/'+info.owner+'/'+info.repo+
+        '/contents/'+encodeURI(info.path);
+      const r=await fetch(url,{headers:{'Accept':'application/vnd.github+json'}});
+      if(!r.ok)throw new Error('github said '+r.status);
+      const j=await r.json();
+      const files=(Array.isArray(j)?j:[]).filter(f=>f.type==='file'&&/\.sspm$/i.test(f.name));
+      this.list=files.map(f=>({
+        name:f.name,size:f.size||0,url:f.download_url,
+        id:'gh_'+String(f.sha||f.name).slice(0,16),
+        title:f.name.replace(/\.sspm$/i,'').replace(/_/g,' ')}));
+      this.listAt=Date.now();
+      return {list:this.list};
+    }catch(e){return {err:String((e&&e.message)||e)};}
+  },
+  /** Download + parse + decode one map; cached for the session. */
+  async load(entry){
+    if(this.cache[entry.id])return this.cache[entry.id];
+    if(this.pending[entry.id])return this.pending[entry.id];
+    const p=(async()=>{
+      const r=await fetch(entry.url);
+      if(!r.ok)throw new Error('download failed ('+r.status+')');
+      const ab=await r.arrayBuffer();
+      const map=parseSSPM(ab);
+      if(!map.audio)throw new Error('this .sspm has no embedded audio');
+      AudioEngine.init();
+      if(AudioEngine.ctx.state==='suspended')AudioEngine.ctx.resume();
+      const buffer=await new Promise((res,rej)=>{
+        const pr=AudioEngine.ctx.decodeAudioData(map.audio,res,rej);
+        if(pr&&pr.then)pr.then(res,rej);
+      });
+      const f={id:entry.id,title:map.title,by:map.artist,dur:map.duration,
+        stars:starRating(map.notes),notes:map.notes};
+      const rec={f,buffer};
+      this.cache[entry.id]=rec;
+      delete this.pending[entry.id];
+      return rec;
+    })();
+    this.pending[entry.id]=p;
+    p.catch(()=>{delete this.pending[entry.id];});
+    return p;
+  }
+};
 
 /* ============ 9. MAP EDITOR ============
    Import an mp3, set BPM + offset, and click the field to place notes on a
@@ -2566,47 +3231,138 @@ const Editor={
     }
   },
   /* ---- automatic map making: onset detection on the snapped beat grid ---- */
+  /* Auto-generate v2: two-band onset analysis + loudness map, then a
+     binary search over the pick threshold until the map's computed star
+     rating lands on the requested target. Streams/bursts unlock with
+     higher targets and only appear where the audio is actually loud. */
   autoGen(){
     const st=this.st;
     if(!st.buffer||typeof st.buffer.getChannelData!=='function'){
       this.status('import audio first');return;}
+    const target=clamp(+((this.$('ed-stars')||{}).value)||5,1,14);
     const buf=st.buffer,sr=buf.sampleRate||44100,data=buf.getChannelData(0);
-    const step=this.snapStep(),off=st.offset/1000;
+    const off=st.offset/1000;
+    const gstep=60/st.bpm/4;                       /* 16th-note analysis grid */
+    /* pass 1: per-slot band features straight off the waveform:
+       lo = mean |x| (body/kicks), hi = mean |x'| (transients/hats) */
     const slots=[];
-    for(let t=Math.max(0,off);t<buf.duration-.06;t+=step){
-      const i0=Math.floor(t*sr),i1=Math.min(data.length,Math.floor((t+step)*sr));
-      let e=0,c=0;
-      for(let i=i0;i<i1;i+=8){e+=data[i]*data[i];c++;}
-      slots.push({t,e:c?e/c:0});
-    }
-    if(slots.length<8){this.status('audio too short to analyze');return;}
-    const avg=slots.reduce((a,s)=>a+s.e,0)/slots.length||1e-9;
-    const notes=[];
-    let env=0,px=0,py=0,vx=1,vy=0;
-    for(const s of slots){
-      const onset=s.e>env*1.4&&s.e>avg*.55;
-      const loud=s.e>avg*1.9;
-      env=Math.max(s.e,env*.72);
-      if(!onset&&!loud)continue;
-      if(notes.length&&s.t-notes[notes.length-1].t<step-1e-6)continue;
-      /* momentum walk keeps the generated map flowy, like built-in charts */
-      let best=null,bs=-1e9;
-      for(const c of ALL_CELLS){
-        const dx=c[0]-px,dy=c[1]-py,dist=Math.max(Math.abs(dx),Math.abs(dy));
-        if(dist===0||dist>1)continue;
-        const l=Math.hypot(dx,dy)||1;
-        const sc=(dx*vx+dy*vy)/l*1.3+Math.random()*1.2
-          -(Math.abs(c[0])+Math.abs(c[1]))*.08;
-        if(sc>bs){bs=sc;best=c;}
+    for(let t=Math.max(0,off);t<buf.duration-.05;t+=gstep){
+      const i0=Math.floor(t*sr),i1=Math.min(data.length,Math.floor((t+gstep)*sr));
+      let lo=0,hi=0,c=0;
+      for(let i=Math.max(4,i0);i<i1;i+=4){
+        const v=data[i];lo+=v<0?-v:v;
+        const d=v-data[i-4];hi+=d<0?-d:d;c++;
       }
-      if(!best)best=[0,0];
-      const dx=best[0]-px,dy=best[1]-py,l=Math.hypot(dx,dy)||1;
-      vx=dx/l;vy=dy/l;px=best[0];py=best[1];
-      notes.push({t:+s.t.toFixed(4),x:px,y:py});
+      slots.push({t,lo:c?lo/c:0,hi:c?hi/c:0});
     }
-    if(!notes.length){this.status('no clear beats found — check bpm/offset');return;}
-    st.notes=notes;st.t=0;this.refresh();
-    this.status('auto-generated '+notes.length+' notes — adjust bpm/offset and rerun to taste');
+    const N=slots.length;
+    if(N<16){this.status('audio too short to analyze');return;}
+    /* onset flux: energy rise vs the previous slot, transient band boosted */
+    for(let i=0;i<N;i++){
+      const p=slots[i>0?i-1:0];
+      slots[i].flux=Math.max(0,slots[i].lo-p.lo)+Math.max(0,slots[i].hi-p.hi)*1.6;
+    }
+    /* adaptive normalization over a ~1.5s window so quiet sections still
+       produce notes and loud ones don't saturate; loudness vs song average */
+    const win=Math.max(2,Math.round(1.5/gstep));
+    const pre=[0],loPre=[0];let rf=0,rl=0;
+    for(let i=0;i<N;i++){rf+=slots[i].flux;pre.push(rf);rl+=slots[i].lo;loPre.push(rl);}
+    const gAvgLo=rl/N||1e-9;
+    for(let i=0;i<N;i++){
+      const a=Math.max(0,i-win),b=Math.min(N,i+win+1);
+      const m=(pre[b]-pre[a])/(b-a)||1e-9;
+      slots[i].o=slots[i].flux/m;
+      slots[i].loud=((loPre[b]-loPre[a])/(b-a))/gAvgLo;
+      slots[i].q=i%4===0?2:(i%2===0?1:0);          /* beat / 8th / 16th slot */
+    }
+    const sorted=slots.map(s=>s.loud).sort((a,b)=>a-b);
+    const pc=p=>sorted[Math.min(N-1,Math.floor(p*N))];
+    const loudHi=pc(.80),loudMid=pc(.55),loudTop=pc(.94);
+    /* candidate times for one setting of the difficulty dial d in [0,1]:
+       the dial lowers the onset threshold AND progressively unlocks
+       8th streams -> wide 8ths -> 16th bursts -> wide 16ths, always gated
+       on how loud the audio actually is right there. */
+    const build=(d)=>{
+      const th=3.2-(3.2-.05)*d;
+      const s8=d>.28,s8wide=d>.5,s16=d>.68,s16wide=d>.85;
+      const gate8=s8wide?loudMid:loudHi;
+      const gate16=s16wide?loudMid:loudTop;
+      const idxs=[];let last=-9;
+      for(let i=0;i<N;i++){
+        const s=slots[i];
+        const bonus=s.q===2?.25:(s.q===1?.1:0);
+        let take=(s.o+bonus>=th)&&(s.q>0||s.o>=th*1.5);
+        if(!take&&s8&&s.loud>=gate8&&s.q>=1)take=true;
+        if(!take&&s16&&s.loud>=gate16)take=true;
+        if(!take)continue;
+        if(s.t-last<gstep-1e-6)continue;
+        idxs.push(i);last=s.t;
+      }
+      return idxs;
+    };
+    /* placement: streams ride the shared PATHS shapes; slower notes use the
+       momentum walk. Long jumps are reserved for the loudest hits. */
+    const place=(idxs)=>{
+      const rng=mulberry32(hashStr((st.title||'gen')+':'+st.bpm+':'+target));
+      const notes=[];let prev={x:0,y:0},vel={x:1,y:0},path=null,pi=0,wasFast=false;
+      const pick=a=>a[(rng()*a.length)|0];
+      const nearest=(p,c)=>{let bi=0,bd=1e9;for(let i=0;i<p.length;i++){
+        const d=(p[i][0]-c.x)**2+(p[i][1]-c.y)**2;if(d<bd){bd=d;bi=i;}}return bi;};
+      for(let k=0;k<idxs.length;k++){
+        const s=slots[idxs[k]];
+        const gap=k?s.t-slots[idxs[k-1]].t:9;
+        const fast=gap<=gstep*2.01;
+        let cell;
+        if(fast){
+          if(!path||!wasFast||gap>gstep*4.01){path=pick(PATHS);pi=nearest(path,prev);}
+          else pi=(pi+1)%path.length;
+          cell=path[pi];
+        }else{
+          const allowSame=gap>=1.2,maxD=(s.loud>=loudHi&&gap>=gstep*4)?2:1;
+          let best=null,bs=-1e9;
+          for(const c of ALL_CELLS){
+            const dx=c[0]-prev.x,dy=c[1]-prev.y,dist=Math.max(Math.abs(dx),Math.abs(dy));
+            if(dist===0&&!allowSame)continue;
+            if(dist>maxD)continue;
+            const l=Math.hypot(dx,dy)||1;
+            let sc=(dx*vel.x+dy*vel.y)/l*1.35+rng()*1.15;
+            if(dist===0)sc-=2.5;
+            if(dist===2)sc+=(s.loud>=loudTop?.5:-.4);
+            sc-=(Math.abs(c[0])+Math.abs(c[1]))*.08;
+            if(sc>bs){bs=sc;best=c;}
+          }
+          cell=best||[0,0];
+        }
+        const dx=cell[0]-prev.x,dy=cell[1]-prev.y,l=Math.hypot(dx,dy);
+        if(l>0){vel.x=dx/l;vel.y=dy/l;}
+        prev={x:cell[0],y:cell[1]};wasFast=fast;
+        notes.push({t:+s.t.toFixed(4),x:cell[0],y:cell[1]});
+      }
+      return notes;
+    };
+    /* pass 3: binary-search the dial toward the target rating
+       (higher dial -> more notes & streams -> more stars) */
+    let lo2=0,hi2=1,bestNotes=null,bestGap=1e9,bestStars=0;
+    const ceiling=place(build(1));
+    const ceilStars=ceiling.length>=8?starRating(ceiling):0;
+    for(let it=0;it<10;it++){
+      const d=(lo2+hi2)/2;
+      const notes=place(build(d));
+      const stars=notes.length>=8?starRating(notes):0;
+      const g=Math.abs(stars-target);
+      if(g<bestGap){bestGap=g;bestNotes=notes;bestStars=stars;}
+      if(stars<target)lo2=d;else hi2=d;
+    }
+    if(ceilStars>0&&ceilStars<=target&&Math.abs(ceilStars-target)<bestGap){
+      bestNotes=ceiling;bestStars=ceilStars;bestGap=Math.abs(ceilStars-target);}
+    if(!bestNotes||bestNotes.length<8){
+      this.status('no clear beats found \u2014 check bpm/offset');return;}
+    st.notes=bestNotes;st.t=0;this.refresh();
+    let msg='generated '+bestNotes.length+' notes \u00b7 '+
+      bestStars.toFixed(1)+'\u2605 (target '+target+'\u2605)';
+    if(bestStars<target-.8&&ceilStars<target)
+      msg+=' \u2014 this track tops out near '+ceilStars.toFixed(1)+'\u2605 at '+st.bpm+' bpm';
+    this.status(msg);
   },
   /* ---- share: copy / paste map data ---- */
   copyData(){
